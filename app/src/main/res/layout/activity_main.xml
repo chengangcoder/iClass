@@ -1,132 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context="cn.edu.xust.www.iclass.activity.MainActivity">
 
-    <ImageView
 
-        android:id="@+id/icon_book"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/bookicon" />
-
-
-    <LinearLayout
-        android:id="@+id/login_area"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/list_viewpager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/icon_book"
-        android:layout_margin="40dp"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:background="#616161">
+
+    </android.support.v4.view.ViewPager>
+
+    <RadioGroup
+
+        android:id="@+id/radiogroup_wizard"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="horizontal">
 
-        <LinearLayout
-            android:id="@+id/login_info"
-            android:layout_width="wrap_content"
+        <RadioButton
+            android:id="@+id/radioButton_class"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_margin="4dp"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:button="@null"
+            android:checked="true"
+            android:drawableTop="@drawable/selector_2"
+            android:gravity="center"
+            android:onClick="onClick" />
 
-            <TextView
-                android:id="@+id/textView_login_name"
-                android:layout_width="match_parent"
-                android:layout_height="0sp"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="用户名："
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-
-            <TextView
-                android:id="@+id/textView_login_password"
-                android:layout_width="match_parent"
-                android:layout_height="0sp"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="密码:"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-
-            <TextView
-                android:id="@+id/textView_Verification_Code"
-                android:layout_width="match_parent"
-                android:layout_height="0sp"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="验证码:"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/login_input"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
+        <RadioButton
+            android:id="@+id/radioButton_chat"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="4dp"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:button="@null"
+            android:drawableTop="@drawable/selector_1"
+            android:onClick="onClick" />
 
+        <RadioButton
+            android:id="@+id/radioButton_user"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_margin="4dp"
+            android:button="@null"
+            android:drawableTop="@drawable/selector_3"
+            android:onClick="onClick" />
 
-            <EditText
-                android:id="@+id/editText_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:hint="@string/login_name" />
-
-            <EditText
-
-                android:id="@+id/editText_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:hint="@string/login_password" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:onClick="onFresh"
-                    android:id="@+id/Verification_Code"
-                    android:layout_width="81dp"
-                    android:layout_height="wrap_content"
-                    android:src="@android:mipmap/sym_def_app_icon" />
-
-
-                <EditText
-                    android:id="@+id/editText_Verification_Code"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:hint="@string/login_Verification_Code"
-
-                    android:textAppearance="?android:textAppearanceSmall" />
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/login_area"
-        android:layout_centerHorizontal="true"
-        android:onClick="onClick"
-        android:text="登  陆"
-        android:textColor="#616161" />
-
-
-</RelativeLayout>
+    </RadioGroup>
+</LinearLayout>
