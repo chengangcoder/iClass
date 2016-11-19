@@ -1,53 +1,147 @@
 package cn.edu.xust.www.iclass.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.Window;
-import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.RadioButton;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import cn.edu.xust.www.iclass.R;
+import cn.edu.xust.www.iclass.fragment.undetermined_Fragment;
+import cn.edu.xust.www.iclass.fragment.undetermined_Fragment_2;
+import cn.edu.xust.www.iclass.fragment.undetermined_Fragment_3;
 
 public class MainActivity extends AppCompatActivity {
+
+    private List<Fragment> fragments;
+    private ViewPager list_viewpager;
+    private RadioButton radioButton_chat;
+    private RadioButton radioButton_user;
+    private RadioButton radioButton_class;
+
+    // private TabLayout tabs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
+
+
         initViews();
-        downVerificationCode();
+
+        fragments = new ArrayList<>();
+
+        fragments.add(new undetermined_Fragment());
+        fragments.add(new undetermined_Fragment_2());
+        fragments.add(new undetermined_Fragment_3());
+
+
+
+        list_viewpager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
+
+        list_viewpager.addOnPageChangeListener(new MyPageChangeListener());
+
+
+      /*  tabs = (TabLayout) findViewById(R.id.sliding_tabs);
+
+
+        // 省略了tab和viepager相互加监听，非常方便
+        tabs.setupWithViewPager(list_viewpager);
+        // 设置tab模式
+        tabs.setTabMode(TabLayout.MODE_FIXED);*/
+
 
     }
 
-    // 下载验证码图片
-    private void downVerificationCode() {
-        new Thread() {
-
-
-        }.start();
-
-    }
-
-
-    // 初始化控件
     private void initViews() {
-        EditText name = (EditText) findViewById(R.id.editText_name);
-        EditText password = (EditText) findViewById(R.id.editText_password);
-        EditText editText_verification_Code = (EditText) findViewById(R.id.editText_Verification_Code);
-        ImageView image_verification_Code = (ImageView) findViewById(R.id.Verification_Code);
+        radioButton_chat = (RadioButton) findViewById(R.id.radioButton_chat);
+        radioButton_user = (RadioButton) findViewById(R.id.radioButton_user);
+        radioButton_class = (RadioButton) findViewById(R.id.radioButton_class);
+        list_viewpager = (ViewPager) findViewById(R.id.list_viewpager);
+    }
 
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.radioButton_chat:
+                list_viewpager.setCurrentItem(1);
+                break;
+            case R.id.radioButton_class:
+                list_viewpager.setCurrentItem(0);
+                break;
+
+            case R.id.radioButton_user:
+                list_viewpager.setCurrentItem(2);
+                break;
+
+        }
 
     }
 
-    // 点击按钮，提交登陆请求
-    public void onClick(View v) {
 
+    class MyPagerAdapter extends FragmentPagerAdapter {
+
+
+        String[] titles = {"title_1", "title_2"};
+
+        public MyPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return fragments.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return fragments.size();
+        }
+
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            //return super.getPageTitle(position);
+            return titles[position];
+
+        }
     }
 
-    // 点击验证码图片，实现刷新
-    public void onFresh(View v) {
 
+    class MyPageChangeListener implements ViewPager.OnPageChangeListener {
+
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+
+            switch (position) {
+                case 0:
+                    radioButton_class.setChecked(true);
+                    break;
+                case 1:
+                    radioButton_chat.setChecked(true);
+                    break;
+                case 2:
+                    radioButton_user.setChecked(true);
+                    break;
+            }
+
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
+        }
     }
+
 }
+
