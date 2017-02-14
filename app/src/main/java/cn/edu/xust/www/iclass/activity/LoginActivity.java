@@ -1,14 +1,12 @@
 package cn.edu.xust.www.iclass.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -26,7 +24,7 @@ import cn.edu.xust.www.iclass.R;
 import cn.edu.xust.www.iclass.util.HttpUtils;
 import cn.edu.xust.www.iclass.util.StreamTools;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends FragmentActivity {
 
     private static final int BITMAP_RETURN_SUCCESS = 0x01;
     private static final int BITMAP_RETURN_FAIL = 0x02;

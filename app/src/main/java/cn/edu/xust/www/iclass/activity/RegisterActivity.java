@@ -4,7 +4,7 @@ import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -28,7 +28,7 @@ import cn.edu.xust.www.iclass.R;
 import cn.edu.xust.www.iclass.util.HttpUtils;
 import cn.edu.xust.www.iclass.util.StreamTools;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends FragmentActivity {
     private static final int REGISTER_SUCCESS = 0;
     private static final int REGISTER_FAIL = 1;
     private static final int CONNECT_ERROR = 2;

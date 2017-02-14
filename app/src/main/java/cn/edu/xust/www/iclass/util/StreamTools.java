@@ -1,12 +1,8 @@
 package cn.edu.xust.www.iclass.util;
 
-import android.util.Log;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.Arrays;
 
 /**
  * Created by chengangcoder on 2016/10/19.
