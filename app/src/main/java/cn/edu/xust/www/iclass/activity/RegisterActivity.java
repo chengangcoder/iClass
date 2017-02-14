@@ -16,13 +16,18 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import cn.edu.xust.www.iclass.R;
 import cn.edu.xust.www.iclass.util.HttpUtils;
@@ -133,12 +138,12 @@ public class RegisterActivity extends FragmentActivity {
                             public void run() {
                                 // super.run();
                                 try {
-                                    URL url = new URL(HttpUtils.GLOBAL_ADDR + "servlet/ValidateUserCode");
+                                    URL url = new URL(HttpUtils.GLOBAL_ADDR + "ValidateUser/validateUsercode");
 
                                     String param = new String();
 
 
-                                    param = "register_userCode=" + editText_userCode.getText().toString();
+                                    param = "usercode=" + editText_userCode.getText().toString();
 
                                     byte[] paramBytes = param.getBytes();
 
@@ -159,15 +164,25 @@ public class RegisterActivity extends FragmentActivity {
 
                                         String result = StreamTools.readInputStream(inputStream);
 
+                                        JSONObject jsonObject = new JSONObject(result);
+
+                                        String code = jsonObject.getString("code");
+
+                                        String msg = jsonObject.getString("msg");
+
+                                        String data = jsonObject.getString("data");
+
                                         Log.i("result=", result + "");
 
-                                        if (!result.equals("no"))
+                                        if (!code.equals("1004"))
 
                                             handler.sendEmptyMessage(USERCODE_ALREADY_EXIST);
                                     }
 
 
                                 } catch (IOException e) {
+                                    e.printStackTrace();
+                                } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
 
@@ -183,7 +198,7 @@ public class RegisterActivity extends FragmentActivity {
         //验证用户名是否存在
 
 
-        editText_userCode.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        editText_name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 {
@@ -195,12 +210,12 @@ public class RegisterActivity extends FragmentActivity {
                             public void run() {
                                 // super.run();
                                 try {
-                                    URL url = new URL(HttpUtils.GLOBAL_ADDR + "servlet/ValidateUsername");
+                                    URL url = new URL(HttpUtils.GLOBAL_ADDR + "ValidateUser/validateUsername");
 
                                     String param = new String();
 
 
-                                    param = "register_username=" + editText_name.getText().toString();
+                                    param = "username=" + editText_name.getText().toString();
 
                                     byte[] paramBytes = param.getBytes();
 
@@ -221,15 +236,25 @@ public class RegisterActivity extends FragmentActivity {
 
                                         String result = StreamTools.readInputStream(inputStream);
 
+                                        JSONObject jsonObject = new JSONObject(result);
+
+                                        String code = jsonObject.getString("code");
+
+                                        String msg = jsonObject.getString("msg");
+
+                                        String data = jsonObject.getString("data");
+
                                         Log.i("response_result=", result + "");
 
-                                        if (!result.equals("no"))
+                                        if (!code.equals("1003"))
 
                                             handler.sendEmptyMessage(USERNAME_ALREADY_EXIST);
                                     }
 
 
                                 } catch (IOException e) {
+                                    e.printStackTrace();
+                                } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
 
@@ -267,17 +292,18 @@ public class RegisterActivity extends FragmentActivity {
                     public void run() {
 
                         try {
-                            URL url = new URL(HttpUtils.GLOBAL_ADDR + "servlet/RegServlet");
+                            URL url = new URL(HttpUtils.GLOBAL_ADDR + "signup");
                             String param = new String();
-                            param = "roleName=" + URLEncoder.encode(roleName_checkedButton.getText().toString()) +
-                                    "&register_userCode=" + editText_userCode.getText().toString() +
-                                    "&register_username=" + editText_name.getText().toString() +
-                                    "&register_userSex=" + URLEncoder.encode(sex_checkedButton.getText().toString()) +
-                                    "&register_password=" + editText_password.getText().toString() +
-                                    "&register_userBirth=" + editText_userBirth.getText().toString() +
-                                    "&register_userFullName=" + editText_userFullName.getText().toString() +
-                                    "&register_userEmail=" + editText_userEmail.getText().toString() +
-                                    "&register_userPhoneNum=" + editText_userPhoneNum.getText().toString();
+                            param = " userrole=" + URLEncoder.encode(roleName_checkedButton.getText().toString()) +
+                                    "&usercode=" + editText_userCode.getText().toString() +
+                                    "&username=" + editText_name.getText().toString() +
+                                    "&usersex=" + URLEncoder.encode(sex_checkedButton.getText().toString()) +
+                                    "&userpassword=" + editText_password.getText().toString() +
+                                    "&userbirth=" + editText_userBirth.getText().toString() +
+                                    "&userfullname=" + editText_userFullName.getText().toString() +
+                                    "&useremail=" + editText_userEmail.getText().toString() +
+                                    "&userphonenum=" + editText_userPhoneNum.getText().toString()+
+                                    "&userregisterdate="+ new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date());
 
 
                             byte[] bytes = param.getBytes();
@@ -289,6 +315,7 @@ public class RegisterActivity extends FragmentActivity {
                             outputStream.write(bytes);
 
                             int responseCode = urlConnection.getResponseCode();
+                            Log.i("result", "" + param);
                             Log.i("Code", "" + responseCode);
                             if (responseCode == 200) {
 
@@ -296,7 +323,18 @@ public class RegisterActivity extends FragmentActivity {
                                 InputStream inputStream = urlConnection.getInputStream();
                                 String result = StreamTools.readInputStream(inputStream);
 
-                                if (result.equals("success")) {
+
+                                Log.i("result", "" + result);
+
+                                JSONObject jsonObject = new JSONObject(result);
+
+                                String code = jsonObject.getString("code");
+
+                                String msg = jsonObject.getString("msg");
+
+                                String data = jsonObject.getString("data");
+
+                                if (code.equals("2003")) {
                                     handler.sendEmptyMessage(REGISTER_SUCCESS);
                                 } else {
                                     handler.sendEmptyMessage(REGISTER_FAIL);
@@ -309,6 +347,8 @@ public class RegisterActivity extends FragmentActivity {
 
 
                         } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (JSONException e) {
                             e.printStackTrace();
                         }
 

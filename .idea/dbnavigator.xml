@@ -2,7 +2,7 @@
 <project version="4">
   <component name="DBNavigator.Project.DataEditorManager">
     <record-view-column-sorting-type value="BY_INDEX" />
-    <value-preview-text-wrapping value="true" />
+    <value-preview-text-wrapping value="false" />
     <value-preview-pinned value="false" />
   </component>
   <component name="DBNavigator.Project.DataExportManager">
@@ -25,8 +25,6 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="860b4f4c-2a40-4891-9688-26188872a9cc">
-        <schema name="bbs" object-types="column, constraint, function, index, procedure, table, dataset trigger, view" />
-        <schema name="hrms" object-types="column, constraint, function, index, procedure, table, dataset trigger, view" />
         <schema name="iclass" object-types="column, constraint, function, index, procedure, table, dataset trigger, view" />
       </connection>
     </loaded-nodes>
@@ -38,7 +36,6 @@
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
     <filter-list connection-id="860b4f4c-2a40-4891-9688-26188872a9cc" dataset="iclass.admin" active-filter-id="EMPTY_FILTER" />
-    <filter-list connection-id="860b4f4c-2a40-4891-9688-26188872a9cc" dataset="iclass.student" active-filter-id="EMPTY_FILTER" />
     <filter-list connection-id="860b4f4c-2a40-4891-9688-26188872a9cc" dataset="iclass.teacher" active-filter-id="EMPTY_FILTER" />
     <filter-list connection-id="860b4f4c-2a40-4891-9688-26188872a9cc" dataset="iclass.user" active-filter-id="EMPTY_FILTER">
       <filter id="c8532539-1cd5-4dfb-a084-b7279c62744c" name="Filter" temporary="false" custom-name="false" type="basic" join-type="AND">
@@ -46,8 +43,18 @@
       </filter>
     </filter-list>
     <filter-list connection-id="860b4f4c-2a40-4891-9688-26188872a9cc" dataset="hrms.attendance" active-filter-id="EMPTY_FILTER" />
-    <filter-list connection-id="860b4f4c-2a40-4891-9688-26188872a9cc" dataset="bbs.users" active-filter-id="EMPTY_FILTER" />
+    <filter-list connection-id="860b4f4c-2a40-4891-9688-26188872a9cc" dataset="iclass.class" active-filter-id="EMPTY_FILTER" />
+    <filter-list connection-id="860b4f4c-2a40-4891-9688-26188872a9cc" dataset="iclass.teacher_course" active-filter-id="EMPTY_FILTER" />
     <filter-list connection-id="860b4f4c-2a40-4891-9688-26188872a9cc" dataset="bbs.article" active-filter-id="EMPTY_FILTER" />
+    <filter-list connection-id="860b4f4c-2a40-4891-9688-26188872a9cc" dataset="iclass.file_class" active-filter-id="EMPTY_FILTER" />
+    <filter-list connection-id="860b4f4c-2a40-4891-9688-26188872a9cc" dataset="iclass.student" active-filter-id="EMPTY_FILTER" />
+    <filter-list connection-id="860b4f4c-2a40-4891-9688-26188872a9cc" dataset="iclass.class_student" active-filter-id="EMPTY_FILTER" />
+    <filter-list connection-id="860b4f4c-2a40-4891-9688-26188872a9cc" dataset="iclass.role" active-filter-id="EMPTY_FILTER" />
+    <filter-list connection-id="860b4f4c-2a40-4891-9688-26188872a9cc" dataset="bbs.users" active-filter-id="EMPTY_FILTER" />
+    <filter-list connection-id="860b4f4c-2a40-4891-9688-26188872a9cc" dataset="iclass.classhd" active-filter-id="EMPTY_FILTER" />
+    <filter-list connection-id="860b4f4c-2a40-4891-9688-26188872a9cc" dataset="iclass.course" active-filter-id="EMPTY_FILTER" />
+    <filter-list connection-id="860b4f4c-2a40-4891-9688-26188872a9cc" dataset="iclass.file" active-filter-id="EMPTY_FILTER" />
+    <filter-list connection-id="860b4f4c-2a40-4891-9688-26188872a9cc" dataset="iclass.rollcall" active-filter-id="EMPTY_FILTER" />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />

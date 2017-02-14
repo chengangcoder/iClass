@@ -12,7 +12,7 @@ public class HttpUtils {
     public static final int HTTP_POST = 1;
     public static final int HTTP_GET = 0;
     //远程"http://115.159.63.34:80/IClass/"
-    public static final String GLOBAL_ADDR = "http://115.159.63.34:80/IClass/";
+    public static final String GLOBAL_ADDR = "http://115.159.63.34:8080/iclass/";
 
     public static HttpURLConnection send(int what, URL url, byte[] bytes) {
 

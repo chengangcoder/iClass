@@ -13,6 +13,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -32,6 +35,8 @@ public class LoginActivity extends FragmentActivity {
     private static final int LOGIN_FAIL = 0x04;
     private static final int USERNAME_ALREADY_EXIST = 0x05;
     private static final int EMPTY_USERNAME = 0x06;
+    private static final int INVALID_USERNAME = 0X07;
+    private static final int INVALID_CODE = 0X08;
     private EditText name;
     private EditText password;
     private EditText editText_verification_code;
@@ -62,11 +67,16 @@ public class LoginActivity extends FragmentActivity {
                     //startActivity(intent);
                     //finish();
                     break;
-                case LOGIN_FAIL:
-                    Toast.makeText(LoginActivity.this, "登陆失败！", Toast.LENGTH_SHORT).show();
+                case INVALID_CODE:
+                    Toast.makeText(LoginActivity.this, "验证码错误！", Toast.LENGTH_SHORT).show();
+                    break;
+                case INVALID_USERNAME:
+                    Toast.makeText(LoginActivity.this, "用户名或密码错误！", Toast.LENGTH_SHORT).show();
+                    break;
             }
         }
     };
+    private String msg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +101,7 @@ public class LoginActivity extends FragmentActivity {
                 URL url = null;
                 try {
 
-                    url = new URL(HttpUtils.GLOBAL_ADDR + "servlet/ImageServlet");
+                    url = new URL(HttpUtils.GLOBAL_ADDR + "VerificationCode/generate");
 
                     HttpURLConnection urlConnection = HttpUtils.send(HttpUtils.HTTP_GET, url);
 
@@ -185,10 +195,9 @@ public class LoginActivity extends FragmentActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.login_button:
-                Intent intent_temp = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent_temp);
-                finish();
-                //login();
+                login();
+
+
                 break;
             case R.id.register:
                 Intent intent = new Intent(this, RegisterActivity.class);
@@ -205,12 +214,13 @@ public class LoginActivity extends FragmentActivity {
             public void run() {
                 //super.run();
                 try {
-                    URL url = new URL(HttpUtils.GLOBAL_ADDR + "/servlet/LoginServlet");
+                    URL url = new URL(HttpUtils.GLOBAL_ADDR + "/login");
                     String param = new String();
-                    param = "rolename=" + URLEncoder.encode("学生") +
-                            "&username=" + URLEncoder.encode(name.getText().toString()) +
-                            "&password=" + URLEncoder.encode(password.getText().toString()) +
-                            "&checkCode=" + URLEncoder.encode(editText_verification_code.getText().toString());
+                    param =
+                            "rolename=" + URLEncoder.encode("学生") +
+                                    "&username=" + URLEncoder.encode(name.getText().toString()) +
+                                    "&password=" + URLEncoder.encode(password.getText().toString()) +
+                                    "&code=" + URLEncoder.encode(editText_verification_code.getText().toString());
 
                     //String encode = URLEncoder.encode(param);
                     Log.i("encode", param);
@@ -231,13 +241,34 @@ public class LoginActivity extends FragmentActivity {
 
                         String result = StreamTools.readInputStream(inputStream);
 
-                        Log.i("result=", result);
 
-                        if (result.equals("success")) {
-                            handler.sendEmptyMessage(LOGIN_SUCCESS);
-                        } else {
-                            handler.sendEmptyMessage(LOGIN_FAIL);
+                        try {
+                            JSONObject jsonObject = new JSONObject(result);
+
+                            String code = jsonObject.getString("code");
+
+                            String msg =  jsonObject.getString("msg");
+
+                            String data = jsonObject.getString("data");
+
+                            Log.i("result=", result);
+
+                            if (code.equals("2001")) {
+                                handler.sendEmptyMessage(LOGIN_SUCCESS);
+                                finish();
+                                Intent intent_temp = new Intent(LoginActivity.this, MainActivity.class);
+                                startActivity(intent_temp);
+                            } else if (code.equals("2002")) {
+                                handler.sendEmptyMessage(INVALID_USERNAME);
+                            } else if (code.equals("3003")) {
+                                handler.sendEmptyMessage(INVALID_CODE);
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
+
+
                     }
 
 

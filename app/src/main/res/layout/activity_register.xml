@@ -193,7 +193,7 @@
                             android:layout_weight="1"
                             android:checked="true"
                             android:gravity="center"
-                            android:text="男士" />
+                            android:text="男" />
 
                         <RadioButton
                             android:id="@+id/radioButton_women"
@@ -201,7 +201,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="女士" />
+                            android:text="女" />
 
                     </RadioGroup>
 

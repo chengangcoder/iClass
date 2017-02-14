@@ -1,5 +1,8 @@
 package cn.edu.xust.www.iclass.util;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,9 +39,13 @@ public class StreamTools {
             byteArray.close();
 
             result = byteArray.toString();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
+
 
         return result;
     }
