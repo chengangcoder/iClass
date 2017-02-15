@@ -13,6 +13,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import cn.edu.xust.www.iclass.R;
 
@@ -21,6 +23,8 @@ public class ClassActivity extends AppCompatActivity {
     public static String url = "https://view.officeapps.live.com/op/view.aspx?src=http%3A%2F%2Fdx1.pptbz.com%2F201102%2F2014112862637921.ppt";
     private WebView mWebView;
     private EditText medt;
+    private LinearLayout ll_edt;
+    private RelativeLayout rl_btngroup;
 
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
@@ -35,7 +39,6 @@ public class ClassActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         initViews();
-
 
 
         WebSettings settings = mWebView.getSettings();
@@ -80,6 +83,29 @@ public class ClassActivity extends AppCompatActivity {
         mWebView = (WebView) findViewById(R.id.mWebView);
 
         medt = (EditText) findViewById(R.id.medt);
+
+        ll_edt = (LinearLayout) findViewById(R.id.ll_edt);
+
+        rl_btngroup = (RelativeLayout) findViewById(R.id.rl_btngroup);
+    }
+
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_positive:
+                break;
+            case R.id.btn_negative:
+                ll_edt.setVisibility(View.VISIBLE);
+                rl_btngroup.setVisibility(View.GONE);
+
+
+                break;
+
+            case R.id.btn_back:
+
+                ll_edt.setVisibility(View.GONE);
+                rl_btngroup.setVisibility(View.VISIBLE);
+                break;
+        }
     }
 
 }

@@ -294,16 +294,16 @@ public class RegisterActivity extends FragmentActivity {
                         try {
                             URL url = new URL(HttpUtils.GLOBAL_ADDR + "signup");
                             String param = new String();
-                            param = " userrole=" + URLEncoder.encode(roleName_checkedButton.getText().toString()) +
+                            param = "userrole=" + URLEncoder.encode(roleName_checkedButton.getText().toString()) +
                                     "&usercode=" + editText_userCode.getText().toString() +
                                     "&username=" + editText_name.getText().toString() +
                                     "&usersex=" + URLEncoder.encode(sex_checkedButton.getText().toString()) +
                                     "&userpassword=" + editText_password.getText().toString() +
                                     "&userbirth=" + editText_userBirth.getText().toString() +
-                                    "&userfullname=" + editText_userFullName.getText().toString() +
+                                    "&userfullname=" + URLEncoder.encode(editText_userFullName.getText().toString()) +
                                     "&useremail=" + editText_userEmail.getText().toString() +
-                                    "&userphonenum=" + editText_userPhoneNum.getText().toString()+
-                                    "&userregisterdate="+ new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date());
+                                    "&userphonenum=" + editText_userPhoneNum.getText().toString();
+                                    //"&userregisterdate="+ new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date());
 
 
                             byte[] bytes = param.getBytes();

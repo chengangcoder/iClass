@@ -76,7 +76,6 @@ public class LoginActivity extends FragmentActivity {
             }
         }
     };
-    private String msg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -217,7 +216,7 @@ public class LoginActivity extends FragmentActivity {
                     URL url = new URL(HttpUtils.GLOBAL_ADDR + "/login");
                     String param = new String();
                     param =
-                            "rolename=" + URLEncoder.encode("学生") +
+                            "userrole=" + URLEncoder.encode("学生") +
                                     "&username=" + URLEncoder.encode(name.getText().toString()) +
                                     "&password=" + URLEncoder.encode(password.getText().toString()) +
                                     "&code=" + URLEncoder.encode(editText_verification_code.getText().toString());
@@ -247,7 +246,7 @@ public class LoginActivity extends FragmentActivity {
 
                             String code = jsonObject.getString("code");
 
-                            String msg =  jsonObject.getString("msg");
+                            String msg = jsonObject.getString("msg");
 
                             String data = jsonObject.getString("data");
 
@@ -256,8 +255,10 @@ public class LoginActivity extends FragmentActivity {
                             if (code.equals("2001")) {
                                 handler.sendEmptyMessage(LOGIN_SUCCESS);
                                 finish();
+
                                 Intent intent_temp = new Intent(LoginActivity.this, MainActivity.class);
                                 startActivity(intent_temp);
+
                             } else if (code.equals("2002")) {
                                 handler.sendEmptyMessage(INVALID_USERNAME);
                             } else if (code.equals("3003")) {

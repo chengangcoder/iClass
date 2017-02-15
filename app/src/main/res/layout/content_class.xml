@@ -24,35 +24,80 @@
             android:layout_width="match_parent"
             android:layout_height="250dp"></WebView>
 
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/rl_btngroup"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone">
+            android:layout_marginTop="50dp"
+            android:visibility="visible">
 
-            <Button
+            <ImageButton
+                android:id="@+id/btn_positive"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="clear" />
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="40dp"
+                android:background="@drawable/shape_button"
+                android:onClick="onClick"
+                android:src="@drawable/ic_done_black_24dp" />
 
-            <Button
+            <ImageButton
+                android:id="@+id/btn_negative"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="confusing" />
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="40dp"
+                android:background="@drawable/shape_button"
+                android:onClick="onClick"
+                android:src="@drawable/ic_help_outline_black_24dp" />
 
 
-        </LinearLayout>
+        </RelativeLayout>
+
 
         <LinearLayout
+            android:id="@+id/ll_edt"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/shape_edt"
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <EditText
                 android:id="@+id/medt"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:background="@drawable/shape_edt"
+                android:background="@null"
                 android:gravity="top"
-                android:maxLines="5" />
+                android:maxLines="5"
+                android:paddingLeft="11dp"
+                android:paddingTop="5dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btn_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:background="@null"
+                    android:onClick="onClick"
+                    android:text="back"
+                    android:textColor="#616161" />
+
+                <Button
+                    android:id="@+id/btn_send"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@null"
+                    android:text="send"
+                    android:textColor="#616161" />
+            </RelativeLayout>
+
         </LinearLayout>
 
 
